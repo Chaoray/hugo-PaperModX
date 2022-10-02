@@ -5,7 +5,7 @@
             {{- with .imageUrls -}}
                 {{- range .}}
                     <img draggable="false" src="{{ .url }}" alt="{{ .title | default "profile image" }}"
-                        height="{{ .height | default 150 }}" width="{{ .width | default 150 }}" />
+                        height="{{ .height | default 150 }}" width="{{ .width | default 150 }}" id="{{ .id }}"/>
                 {{- end }}
             {{- end }}
         {{- end }}

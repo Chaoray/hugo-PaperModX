@@ -1,5 +1,27 @@
-/*
-This is just a placeholder blank stylesheet so as to support adding custom styles budled with theme's default styles
+red {
+    color: red;
+}
 
-Read https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#bundling-custom-css-with-themes-assets for more info
-*/
+blue {
+    color: blue;
+}
+
+green {
+    color: green;
+}
+
+gold {
+    color: gold;
+}
+
+purple {
+    color: purple;
+}
+
+lgray {
+    color: lightgray;
+}
+
+lmHide {
+    color: white;
+}

@@ -23,6 +23,7 @@
     background: var(--line-yellow) bottom left/100% 0.3em no-repeat;
 }
 mark {
+    /*
     margin: 0 -0.4em;
     padding: 0em 0.4em;
     border-radius: 0.8em 0.3em;
@@ -35,6 +36,7 @@ mark {
     );
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
+    */
 }
 
 /* for home and section page */

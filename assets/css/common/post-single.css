@@ -180,6 +180,7 @@ h6:hover .anchor {
     padding: 12px 8px;
     line-height: 1.5;
     border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
 }
 
 .post-content table th {

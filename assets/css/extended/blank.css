@@ -22,8 +22,12 @@ lgray {
     color: lightgray;
 }
 
-lmHide {
-    color: white;
+hide {
+    color: var(--theme);
+}
+
+body.dark hide {
+    color: var(--theme);
 }
 
 mark {

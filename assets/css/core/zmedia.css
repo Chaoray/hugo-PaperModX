@@ -6,7 +6,7 @@
 
     /* profile-mode */
     .profile img {
-        transform: scale(0.85);
+        /*transform: scale(0.85); 為了讓profile mode下的圖片大小一致*/ 
     }
 
     /* post-entry */

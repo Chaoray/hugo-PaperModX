@@ -12,13 +12,13 @@ document.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.b
 </script>
 {{- end -}}
 
-{{- if not .Params.noTips -}}
-<script defer src="{{ .Site.BaseURL }}/js/hover_tooltip.js"></script>
-{{- end -}}
-
 {{- if .Params.chart -}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script defer src="{{ .Site.BaseURL }}/js/fuckingbullshitparser.js"></script>
+<script defer src="{{ .Site.BaseURL }}/js/chart_parser.js"></script>
+{{- end -}}
+
+{{- if .Params.noTips -}}
+<script src="{{ .Site.BaseURL }}/js/hover_tooltip.js"></script>
 {{- end -}}
 
 {{- if not .Date.IsZero -}}

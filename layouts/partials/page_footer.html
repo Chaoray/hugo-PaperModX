@@ -15,37 +15,39 @@
       }, 2000);
     }
 
-    // let copyButtonPressTime = 0, copyButtonStayTime = 0;
-    // let copyButtonText = ["", "已複製", "雙倍複製!", "三倍複製!", "狂暴攻擊!!", "主宰一切!!", "終極複製!!", "無人能擋!!", "變態殺戮!!", "猛獸級複製!!", "超神的!!!", "比神還強!!!!"];
-    // resetCopyButton ();
+    let copyButtonPressTime = 0, copyButtonStayTime = 0;
+    let copyButtonText = ["", "已複製", "雙倍複製!", "三倍複製!", "狂暴攻擊!!", "主宰一切!!", "終極複製!!", "無人能擋!!", "變態殺戮!!", "猛獸級複製!!", "超神的!!!", "比神還強!!!!"];
+    let copyShowBlock = document.querySelector(".copy-show-block");
+    resetCopyButton ();
 
-    // function resetCopyButton () {
-    //     copyButtonPressTime = 0;
-    //     copy-show-block.style.visibility = "hidden";
-    //     copy-show-block.innerHTML = copyButtonText[pressTime];
-    //     copy-show-block.style.background = "#67f285";
-    // }
+    function resetCopyButton () {
+        copyButtonPressTime = 0;
+        copyShowBlock.style.visibility = "hidden";
+        copyShowBlock.innerHTML = copyButtonText[pressTime];
+        copyShowBlock.style.background = "#67f285";
+    }
 
     copybutton.addEventListener('click', (cb) => {
-//    clearTimeout(copyButtonStayTime);
-//    opyButtonPressTime++;
-//    copyButtonStayTime = setTimeout(resetCopyButton, 1000);
-//    copy-show-block.style.visibility = "visible";
-//    copy-show-block.classList.remove("shake");
-//    copy-show-block.classList.remove("crazyShake");
-//    if (copyButtonPressTime <= 10) {
-//        if (copyButtonPressTime == 10) {
-//            copy-show-block.style.background = "#ed6896";
-//            copy-show-block.classList.add("shake");
-//        }
-//        copy-show-block.innerHTML = copyButtonText[pressTime];
-//    } else {
-//        copy-show-block.classList.add("crazyShake");
-//        copy-show-block.innerHTML = copyButtonText[11];
-//    }
-//    copy-show-block.style.animation = 'none';
-//    copy-show-block.offsetHeight;
-//    copy-show-block.style.animation = null;
+      clearTimeout(copyButtonStayTime);
+      opyButtonPressTime++;
+      copyButtonStayTime = setTimeout(resetCopyButton, 1000);
+      copyShowBlock.style.visibility = "visible";
+      copyShowBlock.classList.remove("shake");
+      copyShowBlock.classList.remove("crazyShake");
+      if (copyButtonPressTime <= 10) {
+          if (copyButtonPressTime == 10) {
+              copyShowBlock.style.background = "#ed6896";
+              copyShowBlock.classList.add("shake");
+          }
+          copyShowBlock.innerHTML = copyButtonText[pressTime];
+      } else {
+          copyShowBlock.classList.add("crazyShake");
+          copyShowBlock.innerHTML = copyButtonText[11];
+      }
+      copyShowBlock.style.animation = 'none';
+      copyShowBlock.offsetHeight;
+      copyShowBlock.style.animation = null;
+
       if ('clipboard' in navigator) {
         navigator.clipboard.writeText(codeblock.textContent);
         copyingDone();

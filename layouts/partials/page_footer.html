@@ -160,3 +160,7 @@
   mediumZoom('.post-content img:not([no-zoom])');
 </script>
 {{- end }}
+
+{{- if not .Params.noTips -}}
+<script src="{{ .Site.BaseURL }}js/hover_tooltip.js"></script>
+{{- end -}}

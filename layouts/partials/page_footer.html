@@ -1,6 +1,33 @@
-
 {{- if (and (eq .Kind "page") (ne .Layout "archives") (ne .Layout "search") (.Param "ShowCodeCopyButtons")) }}
 <script>
+  let copyText = ["已複製!", "已複製?", "雙倍複製!", "三倍複製!", "狂暴攻擊!!", "主宰一切!!", "終極複製!!", "無人能擋!!", "變態殺戮!!", "猛獸級複製!!", "超神的!!!", "比神還強!!!!"];
+  let copyClickTime = 0;
+  let copyTimer = 0;
+
+  function shake(element, loopMs, durationMs, scale) {
+    element.style.transition = "0.1s";
+
+    let shakeLooper = setInterval(() => {
+      let randomInt1 = Math.floor((Math.random() * 3) + 1);
+      let randomInt2 = Math.floor((Math.random() * 3) + 1);
+      let randomInt3 = Math.floor((Math.random() * 2) + 1);
+
+      let phase1 = (randomInt1 % 2) == 0 ? "+" : "-";
+      let phase2 = (randomInt2 % 2) == 0 ? "+" : "-";
+      let phase3 = (randomInt3 % 2) == 0 ? "+" : "-";
+
+      let transitionX = ((phase1 + randomInt1) * (scale)) + "px";
+      let transitionY = ((phase2 + randomInt2) * (scale)) + "px";
+      let rotate = ((phase3 + randomInt3) * (scale)) + "deg";
+
+      element.style.transform = `translate(${transitionX},${transitionY}) rotate(${rotate})`;
+    }, loopMs);
+
+    setTimeout(() => {
+      clearInterval(shakeLooper);
+    }, durationMs);
+  }
+
   document.querySelectorAll('pre > code').forEach((codeblock) => {
     const container = codeblock.parentNode.parentNode;
 
@@ -9,48 +36,30 @@
     copybutton.innerText = '{{- i18n "code_copy" | default "copy" }}';
 
     function copyingDone() {
-      copybutton.innerText = '{{- i18n "code_copied" | default "copied!" }}';
-      setTimeout(() => {
-        copybutton.innerText = '{{- i18n "code_copy" | default "copy" }}';
+      copyClickTime = copyClickTime >= copyText.length ? copyText.length - 1 : copyClickTime;
+      copybutton.innerText = copyText[copyClickTime];
+
+      if (copyClickTime >= 10) {
+        copybutton.style.backgroundColor = '#ed6896';
+        shake(copybutton, 50, 500, 2);
+      } else if (copyClickTime >= 0) {
+        copybutton.style.backgroundColor = '#47d265';
+      }
+
+      return setTimeout(() => {
+        // reset to default
+        copybutton.innerText = copyText[0];
+        copybutton.style.backgroundColor = 'rgba(78,78,78,.8)';
+        copyClickTime = 0;
       }, 2000);
     }
 
-    let copyButtonPressTime = 0, copyButtonStayTime = 0;
-    let copyButtonText = ["", "已複製", "雙倍複製!", "三倍複製!", "狂暴攻擊!!", "主宰一切!!", "終極複製!!", "無人能擋!!", "變態殺戮!!", "猛獸級複製!!", "超神的!!!", "比神還強!!!!"];
-    let copyShowBlock = document.querySelector(".copy-show-block");
-    resetCopyButton ();
-
-    function resetCopyButton () {
-        copyButtonPressTime = 0;
-        copyShowBlock.style.visibility = "hidden";
-        copyShowBlock.innerHTML = copyButtonText[pressTime];
-        copyShowBlock.style.background = "#67f285";
-    }
-
     copybutton.addEventListener('click', (cb) => {
-      clearTimeout(copyButtonStayTime);
-      opyButtonPressTime++;
-      copyButtonStayTime = setTimeout(resetCopyButton, 1000);
-      copyShowBlock.style.visibility = "visible";
-      copyShowBlock.classList.remove("shake");
-      copyShowBlock.classList.remove("crazyShake");
-      if (copyButtonPressTime <= 10) {
-          if (copyButtonPressTime == 10) {
-              copyShowBlock.style.background = "#ed6896";
-              copyShowBlock.classList.add("shake");
-          }
-          copyShowBlock.innerHTML = copyButtonText[pressTime];
-      } else {
-          copyShowBlock.classList.add("crazyShake");
-          copyShowBlock.innerHTML = copyButtonText[11];
-      }
-      copyShowBlock.style.animation = 'none';
-      copyShowBlock.offsetHeight;
-      copyShowBlock.style.animation = null;
-
       if ('clipboard' in navigator) {
         navigator.clipboard.writeText(codeblock.textContent);
-        copyingDone();
+        clearTimeout(copyTimer);
+        copyClickTime++;
+        copyTimer = copyingDone();
         return;
       }
 
@@ -87,7 +96,7 @@
 <script>
   // NOTE use closure instead of DOMContentLoaded because of InstantClick,
   // every page loaded by InstantClick should run the <script> tags again.
-  (function() {
+  (function () {
     const enableTocScroll = '{{- if (and (eq .Kind "page") (.Content) (.Param "ShowToc") (.Param "TocSide")) }}1{{ end }}' == '1'
     if (!enableTocScroll) {
       return
@@ -152,7 +161,7 @@
       return rect.top
     }
   })();
-  </script>
+</script>
 
 {{- if (.Param "EnableImageZoom") }}
 <script>

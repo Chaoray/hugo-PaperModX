@@ -125,6 +125,7 @@ function toggleThemeListener() {
                 {{- end }}
             </span>
         </div>
+        {{- $baseURL := .Site.BaseURL -}}
         {{- $currentPage := . }}
         <ul id="menu">
             {{- range site.Menus.main }}
@@ -132,7 +133,7 @@ function toggleThemeListener() {
             {{- $page_url:= $currentPage.Permalink }}
             {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
             <li>
-                <a href="{{ $menu_item_url }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
+                <a href="{{ $baseURL }}{{ .URL }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
                 {{- if $is_search -}}data-no-instant{{- end -}}
                 {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}
                 {{- if eq $page_url $menu_item_url }} class="active" {{- end }}
